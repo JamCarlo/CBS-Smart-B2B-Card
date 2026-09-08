@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+<title>CBS Middle East</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --cream:#f2ede1;
+    --cream-soft:#e9e2d2;
+    --ink:#161a17;
+    --deep:#173626;
+    --deep-2:#0f2a1c;
+    --mid:#3d7a4d;
+    --leaf:#77b24a;
+    --leaf-light:#a9d18a;
+    --paper-card:#dedad0;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;
+    letter-spacing:.01em;
+    margin:0;
+  }
+  a{color:inherit;}
+  button{font-family:inherit;}
+
+  /* ---------- INTRO OVERLAY ---------- */
+  #intro{
+    position:fixed;
+    inset:0;
+    z-index:40;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px;
+    background:rgba(15,42,28,.88);
+    backdrop-filter:blur(2px);
+    transition:opacity .25s ease;
+    pointer-events:none;
+  }
+  #intro.show{pointer-events:auto;}
+  #intro-box{
+    max-width:360px;
+    text-align:center;
+    color:var(--cream);
+  }
+  #intro-mark{
+    width:46px;height:46px;margin:0 auto 18px;
+  }
+  #intro-box p.eyebrow{
+    font-size:12px;
+    color:var(--leaf-light);
+    margin:0 0 10px;
+    font-weight:600;
+    letter-spacing:.06em;
+  }
+  #intro-box h2{
+    font-size:30px;
+    line-height:1.08;
+    margin-bottom:14px;
+  }
+  #intro-box p.body{
+    font-size:14.5px;
+    line-height:1.55;
+    color:#d6e3d5;
+    margin:0 0 22px;
+  }
+  #intro-cue{
+    font-size:12px;
+    color:var(--leaf-light);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    animation:bob 1.8s ease-in-out infinite;
+  }
+  #intro-cue svg{width:16px;height:16px;}
+  @keyframes bob{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(6px);}
+  }
+
+  /* ---------- HERO ---------- */
+  #hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    background:var(--cream);
+    overflow:hidden;
+    padding:22px 22px 30px;
+  }
+  #hero .squarefield{
+    position:absolute;
+    top:-10%;
+    left:-18%;
+    width:78%;
+    height:80%;
+    z-index:0;
+  }
+  .sq{
+    position:absolute;
+    border-radius:22px;
+  }
+  #hero-top{
+    position:relative;
+    z-index:2;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:10px;
+  }
+  .logo-mark{width:34px;height:34px;flex-shrink:0;}
+  .logo-word{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;
+    font-size:26px;
+    line-height:1;
+    color:var(--ink);
+  }
+  .logo-sub{
+    font-size:9px;
+    letter-spacing:.18em;
+    color:var(--mid);
+    font-weight:600;
+    margin-top:2px;
+  }
+  #hero-bottom{
+    position:relative;
+    z-index:2;
+    text-align:right;
+  }
+  #hero-bottom .tagline{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;
+    font-size:clamp(30px,9vw,42px);
+    line-height:1.02;
+    color:var(--mid);
+    text-transform:uppercase;
+  }
+  #hero-bottom .sub{
+    margin-top:10px;
+    font-size:13px;
+    color:#4a4a42;
+    max-width:230px;
+    margin-left:auto;
+    line-height:1.5;
+  }
+
+  /* ---------- STAT STRIP ---------- */
+  #stats{
+    background:var(--deep);
+    color:var(--cream);
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    padding:22px 10px;
+  }
+  #stats .stat{
+    text-align:center;
+    padding:0 6px;
+    border-left:1px solid rgba(242,237,225,.15);
+  }
+  #stats .stat:first-child{border-left:none;}
+  #stats .num{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;
+    font-size:26px;
+    color:var(--leaf-light);
+    line-height:1;
+  }
+  #stats .lbl{
+    font-size:10.5px;
+    color:#c9d6c8;
+    margin-top:6px;
+    line-height:1.3;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section.block{
+    padding:44px 22px;
+  }
+  .eyebrow-tag{
+    font-size:11px;
+    font-weight:600;
+    color:var(--mid);
+    margin-bottom:8px;
+  }
+  .block h2.head{
+    font-size:30px;
+    color:var(--ink);
+    margin-bottom:12px;
+  }
+  .block p.lead{
+    font-size:14.5px;
+    line-height:1.6;
+    color:#4a4a42;
+    margin-bottom:20px;
+  }
+
+  /* ---------- PORTFOLIO PREVIEW CARD ---------- */
+  #portfolio-card{
+    position:relative;
+    border-radius:18px;
+    overflow:hidden;
+    background:var(--deep-2);
+    color:var(--cream);
+    cursor:pointer;
+    border:none;
+    width:100%;
+    text-align:left;
+    padding:0;
+    display:block;
+  }
+  #portfolio-card .pv-squares{
+    position:absolute;
+    inset:0;
+    opacity:.55;
+  }
+  #portfolio-card .pv-inner{
+    position:relative;
+    z-index:2;
+    padding:26px 22px 22px;
+    min-height:210px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  #portfolio-card .pv-top{
+    font-size:11px;
+    letter-spacing:.1em;
+    color:var(--leaf-light);
+    font-weight:600;
+  }
+  #portfolio-card .pv-title{
+    font-size:30px;
+    line-height:1.05;
+    margin-top:10px;
+    color:#fff;
+  }
+  #portfolio-card .pv-cta{
+    margin-top:18px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--leaf-light);
+  }
+  #portfolio-card .pv-cta svg{width:14px;height:14px;}
+
+  /* ---------- MORE ABOUT US BUTTON ---------- */
+  .btn-outline{
+    margin-top:16px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:transparent;
+    border:1.5px solid var(--deep);
+    color:var(--deep);
+    padding:11px 20px;
+    border-radius:100px;
+    font-size:13.5px;
+    font-weight:600;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .btn-outline svg{width:13px;height:13px;}
+
+  /* ---------- CONNECT SECTION ---------- */
+  #connect{
+    background:var(--deep-2);
+    color:var(--cream);
+    padding:48px 22px 60px;
+  }
+  #connect .eyebrow-tag{color:var(--leaf-light);}
+  #connect h2.head{color:#fff;}
+  #connect p.lead{color:#c9d6c8;}
+
+  .md-card{
+    background:rgba(242,237,225,.06);
+    border:1px solid rgba(242,237,225,.14);
+    border-radius:18px;
+    padding:20px;
+    display:flex;
+    gap:14px;
+    align-items:center;
+  }
+  .md-avatar{
+    width:56px;height:56px;
+    border-radius:14px;
+    background:linear-gradient(135deg,var(--leaf),var(--mid));
+    color:#0f2a1c;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;
+    font-size:22px;
+    flex-shrink:0;
+  }
+  .md-info h3{font-size:19px;color:#fff;}
+  .md-info .role{font-size:12.5px;color:var(--leaf-light);margin-top:2px;}
+
+  .contact-rows{
+    margin-top:16px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .contact-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:rgba(242,237,225,.05);
+    border:1px solid rgba(242,237,225,.12);
+    border-radius:14px;
+    padding:13px 14px;
+    text-decoration:none;
+    color:var(--cream);
+    font-size:13.5px;
+  }
+  .contact-row .ic{
+    width:34px;height:34px;
+    border-radius:9px;
+    background:rgba(119,178,74,.18);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .contact-row .ic svg{width:16px;height:16px;color:var(--leaf-light);}
+  .contact-row .txt .k{font-size:10.5px;color:#9fb09b;}
+  .contact-row .txt .v{font-weight:600;margin-top:1px;}
+
+  .btn-save{
+    margin-top:18px;
+    width:100%;
+    background:var(--leaf);
+    color:#0f2a1c;
+    border:none;
+    padding:15px;
+    border-radius:14px;
+    font-size:14.5px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    cursor:pointer;
+  }
+  .btn-save svg{width:17px;height:17px;}
+  .btn-save:active{transform:scale(.98);}
+
+  .divider-text{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:32px 0 18px;
+    color:#8fa08c;
+    font-size:12.5px;
+  }
+  .divider-text::before,.divider-text::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background:rgba(242,237,225,.15);
+  }
+
+  form#lead-form{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  form#lead-form input{
+    width:100%;
+    background:rgba(242,237,225,.06);
+    border:1px solid rgba(242,237,225,.18);
+    border-radius:12px;
+    padding:13px 14px;
+    color:#fff;
+    font-size:14px;
+    font-family:inherit;
+  }
+  form#lead-form input::placeholder{color:#8fa08c;}
+  form#lead-form input:focus{outline:2px solid var(--leaf);outline-offset:1px;}
+  .btn-send{
+    margin-top:4px;
+    background:transparent;
+    border:1.5px solid var(--leaf);
+    color:var(--leaf-light);
+    padding:14px;
+    border-radius:12px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .btn-send:active{transform:scale(.98);}
+  #lead-status{
+    font-size:12.5px;
+    margin-top:10px;
+    color:var(--leaf-light);
+    display:none;
+  }
+  #lead-status.show{display:block;}
+
+  footer{
+    background:var(--deep-2);
+    color:#7d8f7a;
+    text-align:center;
+    font-size:11px;
+    padding:0 22px 34px;
+    letter-spacing:.03em;
+  }
+
+  /* ---------- MODAL (Capability Portfolio) ---------- */
+  #modal{
+    position:fixed;
+    inset:0;
+    z-index:60;
+    background:var(--deep-2);
+    display:flex;
+    flex-direction:column;
+    transform:translateY(100%);
+    transition:transform .32s cubic-bezier(.22,.9,.32,1);
+  }
+  #modal.open{transform:translateY(0);}
+  #modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 18px;
+    border-bottom:1px solid rgba(242,237,225,.12);
+    flex-shrink:0;
+  }
+  #modal-header .mh-title{
+    color:#fff;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;
+    font-size:19px;
+  }
+  #modal-close{
+    width:34px;height:34px;
+    border-radius:50%;
+    background:rgba(242,237,225,.08);
+    border:none;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;
+    cursor:pointer;
+  }
+  #modal-close svg{width:16px;height:16px;}
+  #modal-scroller{
+    flex:1;
+    display:flex;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+  }
+  .page{
+    scroll-snap-align:start;
+    flex:0 0 100%;
+    height:100%;
+    overflow-y:auto;
+    padding:26px 22px 30px;
+    color:var(--cream);
+  }
+  .page .ph-bar{
+    display:inline-block;
+    background:#0a0a0a;
+    color:#fff;
+    font-size:10.5px;
+    font-weight:600;
+    letter-spacing:.08em;
+    padding:6px 12px;
+    border-radius:4px;
+    margin-bottom:16px;
+  }
+  .page h3{
+    font-size:26px;
+    color:#fff;
+    margin-bottom:14px;
+  }
+  .page p{
+    font-size:13.5px;
+    line-height:1.65;
+    color:#c9d6c8;
+    margin:0 0 14px;
+  }
+  .page ul{
+    margin:0 0 14px;
+    padding-left:18px;
+    color:#c9d6c8;
+    font-size:13.5px;
+    line-height:1.7;
+  }
+  .page ul li{margin-bottom:4px;}
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:6px;
+  }
+  .stat-grid .cell{
+    background:rgba(242,237,225,.06);
+    border:1px solid rgba(242,237,225,.12);
+    border-radius:12px;
+    padding:14px;
+  }
+  .stat-grid .cell .n{
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:24px;
+    font-weight:700;
+    color:var(--leaf-light);
+  }
+  .stat-grid .cell .l{
+    font-size:11px;
+    color:#9fb09b;
+    margin-top:3px;
+  }
+  .proj-item{
+    background:rgba(242,237,225,.05);
+    border:1px solid rgba(242,237,225,.1);
+    border-radius:12px;
+    padding:13px 14px;
+    margin-bottom:9px;
+  }
+  .proj-item .pn{font-weight:700;color:#fff;font-size:14px;}
+  .proj-item .pd{font-size:12px;color:#9fb09b;margin-top:2px;}
+  .chip-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:6px;
+  }
+  .chip{
+    background:rgba(119,178,74,.14);
+    color:var(--leaf-light);
+    font-size:11.5px;
+    padding:7px 11px;
+    border-radius:100px;
+    border:1px solid rgba(119,178,74,.3);
+  }
+  #modal-dots{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    padding:12px 0 18px;
+    flex-shrink:0;
+  }
+  #modal-dots span{
+    width:6px;height:6px;
+    border-radius:50%;
+    background:rgba(242,237,225,.2);
+  }
+  #modal-dots span.active{background:var(--leaf);}
+</style>
+</head>
+<body>
+
+  <!-- INTRO OVERLAY -->
+  <div id="intro" class="show">
+    <div id="intro-box">
+      <svg id="intro-mark" viewBox="0 0 60 60" fill="none">
+        <rect x="16" y="4" width="20" height="20" rx="5" fill="#a9d18a" transform="rotate(45 26 14)"/>
+        <rect x="2" y="18" width="20" height="20" rx="5" fill="#173626" transform="rotate(45 12 28)"/>
+        <rect x="30" y="18" width="20" height="20" rx="5" fill="#77b24a" transform="rotate(45 40 28)"/>
+      </svg>
+      <p class="eyebrow">CBS Middle East</p>
+      <h2>You're inside our digital site office.</h2>
+      <p class="body">This is a live, interactive space — flip through our capability portfolio, see the work we've poured across the region, and connect directly with our Managing Director. No downloads, no waiting rooms.</p>
+      <div id="intro-cue">
+        Scroll to explore
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header id="hero">
+    <div class="squarefield" id="squarefield"></div>
+    <div id="hero-top">
+      <div>
+        <div class="logo-word">CBS</div>
+        <div class="logo-sub">MIDDLE EAST</div>
+      </div>
+    </div>
+    <div id="hero-bottom">
+      <div class="tagline">Building a<br>Concrete Future</div>
+      <p class="sub">Specialist high-tolerance concrete flooring, delivered across Saudi Arabia and the wider region.</p>
+    </div>
+  </header>
+
+  <!-- STAT STRIP -->
+  <div id="stats">
+    <div class="stat">
+      <div class="num">1M+</div>
+      <div class="lbl">SQM executed in KSA</div>
+    </div>
+    <div class="stat">
+      <div class="num">6,000</div>
+      <div class="lbl">SQM poured per day</div>
+    </div>
+    <div class="stat">
+      <div class="num">500K</div>
+      <div class="lbl">m² single project floor</div>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO PREVIEW -->
+  <section class="block" id="portfolio-section">
+    <div class="eyebrow-tag">What we do</div>
+    <h2 class="head">Our capability portfolio</h2>
+    <p class="lead">Design, supply and installation of high-tolerance concrete floors for warehouses, cold stores, manufacturing plants and industrial yards — from a British-led team with international experience and local presence.</p>
+
+    <button id="portfolio-card" onclick="openModal()">
+      <svg class="pv-squares" viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="0" width="70" height="70" rx="16" fill="#2a5a3a" opacity=".8"/>
+        <rect x="55" y="35" width="70" height="70" rx="16" fill="#4a8a55" opacity=".6"/>
+        <rect x="0" y="80" width="70" height="70" rx="16" fill="#77b24a" opacity=".5"/>
+        <rect x="60" y="110" width="70" height="70" rx="16" fill="#1f4a30" opacity=".7"/>
+      </svg>
+      <div class="pv-inner">
+        <div>
+          <div class="pv-top">CAPABILITIES PORTFOLIO</div>
+          <div class="pv-title">12 sections.<br>One tap.</div>
+        </div>
+        <div class="pv-cta">
+          Open the preview
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>
+        </div>
+      </div>
+    </button>
+
+    <a class="btn-outline" href="https://www.concretebuildingsolutions.co.uk/" target="_blank" rel="noopener">
+      More about us
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
+    </a>
+  </section>
+
+  <!-- LET'S CONNECT -->
+  <section id="connect">
+    <div class="eyebrow-tag">Talk to us</div>
+    <h2 class="head">Let's connect</h2>
+    <p class="lead">Reach our Managing Director directly, or leave your details and we'll come to you.</p>
+
+    <div class="md-card">
+      <div class="md-avatar">TB</div>
+      <div class="md-info">
+        <h3>Tom Bradley</h3>
+        <div class="role">Managing Director, CBS Middle East</div>
+      </div>
+    </div>
+
+    <div class="contact-rows">
+      <a class="contact-row" href="tel:+966582475593">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div class="txt">
+          <div class="k">Phone</div>
+          <div class="v">+966 58 247 5593</div>
+        </div>
+      </a>
+      <a class="contact-row" href="mailto:thb@cbsmiddleeast.com">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></div>
+        <div class="txt">
+          <div class="k">Email</div>
+          <div class="v">thb@cbsmiddleeast.com</div>
+        </div>
+      </a>
+    </div>
+
+    <button class="btn-save" onclick="saveContact()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+      Save Tom's contact
+    </button>
+
+    <div class="divider-text">Or send me your details</div>
+
+    <form id="lead-form">
+      <input type="text" id="lead-name" placeholder="Your name" required>
+      <input type="tel" id="lead-phone" placeholder="Phone number" required>
+      <input type="email" id="lead-email" placeholder="Email address" required>
+      <button type="submit" class="btn-send">Send my details to Tom</button>
+    </form>
+    <div id="lead-status"></div>
+  </section>
+
+  <footer>
+    International Experience &nbsp;&middot;&nbsp; Local Presence<br>
+    &copy; <span id="year"></span> CBS Middle East
+  </footer>
+
+  <!-- MODAL -->
+  <div id="modal">
+    <div id="modal-header">
+      <div class="mh-title">Capabilities Portfolio</div>
+      <button id="modal-close" onclick="closeModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div id="modal-scroller">
+
+      <div class="page">
+        <div class="ph-bar">01 — EXECUTIVE SUMMARY</div>
+        <h3>A specialist in high-tolerance flooring</h3>
+        <p>CBS is a leading specialist in high-tolerance laser screed flooring, recognised for speed, efficiency and quality. With a proven track record in large-scale concrete pours of up to 6,000 m² per day, we consistently deliver projects on time and within budget.</p>
+        <p>Our expertise covers the full project cycle from design through to installation, providing clients with end-to-end solutions and world-class workmanship — bringing global standards, including projects across the UK, to the Middle East market.</p>
+      </div>
+
+      <div class="page">
+        <div class="ph-bar">02 — CAPABILITY STATEMENT</div>
+        <h3>Proven at scale</h3>
+        <div class="stat-grid">
+          <div class="cell"><div class="n">6,000 m²</div><div class="l">Proven daily pour capability</div></div>
+          <div class="cell"><div class="n">500,000 m²</div><div class="l">Largest single project — Ceer Automotive</div></div>
+          <div class="cell"><div class="n">135,000 m²</div><div class="l">Hyundai Automotive plant</div></div>
+          <div class="cell"><div class="n">1,000,000+ m²</div><div class="l">Total executed in KSA</div></div>
+        </div>
+        <p style="margin-top:14px;">Led on-site by a dedicated British operations team spanning design, quality, laying and finishing.</p>
+      </div>
+
+      <div class="page">
+        <div class="ph-bar">03 — PRINCIPAL ACTIVITIES</div>
+        <h3>A specialised design &amp; build contractor</h3>
+        <p>CBS operates as part of the DAC Group, with several specialised divisions working together on every project:</p>
+        <div class="chip-row">
+          <span class="chip">Industrial Flooring (HTCF)</span>
+          <span class="chip">Laser Scanning &amp; BIM</span>
+          <span class="chip">Hygienic Floors</span>
+          <span class="chip">Design &amp; Build</span>
+          <span class="chip">Steel Structure Erection</span>
+          <span class="chip">Heavy Lifting</span>
+          <span class="chip">Carbon Fibre</span>
+          <span class="chip">Cathodic Protection</span>
+          <span class="chip">MEP</span>
+          <span class="chip">Fire Fighting</span>
+          <span class="chip">Infrastructure</span>
+          <span class="chip">Landscape</span>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="ph-bar">04 — KEY PROJECTS</div>
+        <h3>A portfolio built on trust</h3>
+        <div class="proj-item"><div class="pn">Ceer Automotive — KAEC</div><div class="pd">500,000 m² · Super Flat Floor (FM2)</div></div>
+        <div class="proj-item"><div class="pn">Hyundai Automotive — KAEC</div><div class="pd">135,000 m² internal + 50,000 m² external</div></div>
+        <div class="proj-item"><div class="pn">Agility Logistics Warehouses 03–06</div><div class="pd">Jeddah &amp; Riyadh · up to 60,000 m² each</div></div>
+        <div class="proj-item"><div class="pn">Al Asasyah Warehouses</div><div class="pd">Jeddah &amp; Dammam · 138,000 m² combined</div></div>
+        <div class="proj-item"><div class="pn">Al Munajem Food Plant</div><div class="pd">Jeddah &amp; Riyadh · 63,000 m² combined</div></div>
+        <div class="proj-item"><div class="pn">Obeikan Glass Company — Yanbu</div><div class="pd">35,000 m² · Super Flat Floor (FM2)</div></div>
+      </div>
+
+      <div class="page">
+        <div class="ph-bar">05 — EQUIPMENT RESOURCES</div>
+        <h3>State-of-the-art flooring machinery</h3>
+        <p>Specialised equipment sourced directly from leading European manufacturers, backed by hands-on technical support and on-site expertise.</p>
+        <div class="chip-row">
+          <span class="chip">Super Flat Laser Screed TS6000 ×3</span>
+          <span class="chip">Somero S-22 EZ ×2</span>
+          <span class="chip">Somero S-15 R</span>
+          <span class="chip">Dry-shake Spreaders ×2</span>
+          <span class="chip">Ride-on Power Trowels ×18</span>
+          <span class="chip">Telehandlers ×2</span>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="ph-bar">06 — CERTIFICATIONS</div>
+        <h3>Certified to international standard</h3>
+        <p>Our parent company, DAC Group, is independently certified and an active member of the U.S. Green Building Council.</p>
+        <div class="chip-row">
+          <span class="chip">ISO 45001:2018 — Health &amp; Safety</span>
+          <span class="chip">ISO 9001:2015 — Quality</span>
+          <span class="chip">ISO 14001:2015 — Environmental</span>
+          <span class="chip">USGBC Gold Member</span>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="ph-bar">07 — WHY CBS</div>
+        <h3>Built for complex, large-scale floors</h3>
+        <ul>
+          <li>Technical excellence with genuine value engineering</li>
+          <li>One-stop-shop, backed by an integrated group structure</li>
+          <li>Financially stable, reputable parent company</li>
+          <li>In-depth local insight into the KSA &amp; Jeddah market</li>
+          <li>Guaranteed quality against established standards</li>
+        </ul>
+        <p>Want the full document, or ready to talk specifics? Close this preview and reach out below.</p>
+      </div>
+
+    </div>
+    <div id="modal-dots"></div>
+  </div>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---- generate the hero square pattern ---- */
+(function(){
+  const field = document.getElementById('squarefield');
+  const colors = ['#1a3a26','#2d5a3a','#4a8a55','#77b24a','#a9d18a'];
+  const cells = [
+    {x:10,y:0,s:150,c:0,o:.95},
+    {x:70,y:40,s:150,c:2,o:.5},
+    {x:0,y:120,s:150,c:3,o:.55},
+    {x:90,y:150,s:150,c:1,o:.5},
+    {x:-30,y:220,s:150,c:0,o:.7},
+    {x:50,y:270,s:150,c:4,o:.45},
+    {x:130,y:230,s:130,c:1,o:.35},
+  ];
+  cells.forEach(cell=>{
+    const d = document.createElement('div');
+    d.className='sq';
+    d.style.width=cell.s+'px';
+    d.style.height=cell.s+'px';
+    d.style.left=cell.x+'px';
+    d.style.top=cell.y+'px';
+    d.style.background=colors[cell.c];
+    d.style.opacity=cell.o;
+    field.appendChild(d);
+  });
+})();
+
+/* ---- intro fade on scroll ---- */
+const intro = document.getElementById('intro');
+function updateIntro(){
+  const y = window.scrollY;
+  const fadeRange = 260;
+  const opacity = Math.max(0, 1 - y / fadeRange);
+  intro.style.opacity = opacity;
+  if(opacity <= 0.02){
+    intro.classList.remove('show');
+  } else {
+    intro.classList.add('show');
+  }
+}
+window.addEventListener('scroll', updateIntro, {passive:true});
+updateIntro();
+
+/* ---- modal ---- */
+const modal = document.getElementById('modal');
+const scroller = document.getElementById('modal-scroller');
+const dotsWrap = document.getElementById('modal-dots');
+const pages = document.querySelectorAll('.page');
+pages.forEach((_,i)=>{
+  const dot = document.createElement('span');
+  if(i===0) dot.classList.add('active');
+  dotsWrap.appendChild(dot);
+});
+function updateDots(){
+  const idx = Math.round(scroller.scrollLeft / scroller.clientWidth);
+  [...dotsWrap.children].forEach((d,i)=> d.classList.toggle('active', i===idx));
+}
+scroller.addEventListener('scroll', updateDots, {passive:true});
+
+function openModal(){
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+  scroller.scrollLeft = 0;
+  updateDots();
+}
+function closeModal(){
+  modal.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+/* ---- save contact (vCard) ---- */
+function saveContact(){
+  const vcard = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    'N:Bradley;Tom;;;',
+    'FN:Tom Bradley',
+    'ORG:CBS Middle East',
+    'TITLE:Managing Director',
+    'TEL;TYPE=CELL:+966582475593',
+    'EMAIL:thb@cbsmiddleeast.com',
+    'URL:https://cbsmiddleeast.com',
+    'END:VCARD'
+  ].join('\n');
+  const blob = new Blob([vcard], {type:'text/vcard'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Tom_Bradley_CBS.vcf';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* ---- lead form -> email ---- */
+document.getElementById('lead-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('lead-name').value.trim();
+  const phone = document.getElementById('lead-phone').value.trim();
+  const email = document.getElementById('lead-email').value.trim();
+
+  const subject = encodeURIComponent('New connection request via CBS Middle East');
+  const body = encodeURIComponent(
+    'Hi Tom,\n\nSomeone would like to connect with you via the CBS Middle East site.\n\n' +
+    'Name: ' + name + '\n' +
+    'Phone: ' + phone + '\n' +
+    'Email: ' + email + '\n\n' +
+    'Please reach out at your convenience.'
+  );
+  const mailto = 'mailto:thb@cbsmiddleeast.com?subject=' + subject + '&body=' + body;
+
+  const status = document.getElementById('lead-status');
+  status.textContent = 'Opening your email app to send these details to Tom…';
+  status.classList.add('show');
+
+  window.location.href = mailto;
+});
+</script>
+</body>
+</html>
