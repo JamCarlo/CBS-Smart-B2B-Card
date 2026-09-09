@@ -8,8 +8,8 @@
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap');
 
   :root{
-    --cream:#f2ede1;
-    --cream-soft:#e9e2d2;
+    --cream:#ffffff;
+    --cream-soft:#f9f9f9;
     --ink:#161a17;
     --deep:#173626;
     --deep-2:#0f2a1c;
@@ -57,7 +57,7 @@
     color:var(--cream);
   }
   #intro-mark{
-    width:46px;height:46px;margin:0 auto 18px;
+    width:56px;height:56px;margin:0 auto 18px;
   }
   #intro-box p.eyebrow{
     font-size:12px;
@@ -124,22 +124,11 @@
     display:flex;
     justify-content:flex-end;
     align-items:center;
-    gap:10px;
   }
-  .logo-mark{width:34px;height:34px;flex-shrink:0;}
-  .logo-word{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:700;
-    font-size:26px;
-    line-height:1;
-    color:var(--ink);
-  }
-  .logo-sub{
-    font-size:9px;
-    letter-spacing:.18em;
-    color:var(--mid);
-    font-weight:600;
-    margin-top:2px;
+  .header-logo-svg {
+    height: 48px;
+    width: auto;
+    display: block;
   }
   #hero-bottom{
     position:relative;
@@ -611,10 +600,17 @@
   <!-- INTRO OVERLAY -->
   <div id="intro" class="show">
     <div id="intro-box">
-      <svg id="intro-mark" viewBox="0 0 60 60" fill="none">
-        <rect x="16" y="4" width="20" height="20" rx="5" fill="#a9d18a" transform="rotate(45 26 14)"/>
-        <rect x="2" y="18" width="20" height="20" rx="5" fill="#173626" transform="rotate(45 12 28)"/>
-        <rect x="30" y="18" width="20" height="20" rx="5" fill="#77b24a" transform="rotate(45 40 28)"/>
+      <svg id="intro-mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g transform="rotate(-23.5 50 50)">
+          <!-- Top Tile (Light Green) -->
+          <rect x="36" y="8" width="37" height="37" rx="8" fill="#58a65c" />
+          <!-- Right Tile (Medium Green) -->
+          <rect x="52" y="36" width="37" height="37" rx="8" fill="#60be62" />
+          <!-- Bottom-Left Tile (Dark Green) -->
+          <rect x="24" y="52" width="37" height="37" rx="8" fill="#1b412b" />
+          <!-- Left Tile (Mid-Dark Green) -->
+          <rect x="8" y="24" width="37" height="37" rx="8" fill="#296c42" />
+        </g>
       </svg>
       <p class="eyebrow">CBS Middle East</p>
       <h2>You're inside our digital site office.</h2>
@@ -630,10 +626,22 @@
   <header id="hero">
     <div class="squarefield" id="squarefield"></div>
     <div id="hero-top">
-      <div>
-        <div class="logo-word">CBS</div>
-        <div class="logo-sub">MIDDLE EAST</div>
-      </div>
+      <svg class="header-logo-svg" viewBox="0 0 280 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g transform="rotate(-23.5 45 42)">
+          <!-- Top Tile -->
+          <rect x="30" y="4" width="32" height="32" rx="7" fill="#3B8347" />
+          <!-- Right Tile -->
+          <rect x="44" y="28" width="32" height="32" rx="7" fill="#4CAF50" />
+          <!-- Bottom-Left Tile -->
+          <rect x="20" y="42" width="32" height="32" rx="7" fill="#1E402B" />
+          <!-- Left Tile -->
+          <rect x="6" y="18" width="32" height="32" rx="7" fill="#2A5C36" />
+        </g>
+        <!-- CBS Text -->
+        <text x="96" y="72" fill="#23422B" font-family="'Inter', Arial, sans-serif" font-weight="900" font-size="74" letter-spacing="-1.5">CBS</text>
+        <!-- MIDDLE EAST Text -->
+        <text x="96" y="98" fill="#55B362" font-family="'Inter', Arial, sans-serif" font-weight="700" font-size="20" letter-spacing="3.8">MIDDLE EAST</text>
+      </svg>
     </div>
     <div id="hero-bottom">
       <div class="tagline">Building a<br>Concrete Future</div>
