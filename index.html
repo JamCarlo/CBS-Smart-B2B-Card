@@ -101,6 +101,7 @@
     min-height:100svh;
     display:flex;
     flex-direction:column;
+    justify-space-between:space-between;
     justify-content:space-between;
     background:var(--cream);
     overflow:hidden;
@@ -125,9 +126,9 @@
     justify-content:flex-end;
     align-items:center;
   }
-  .header-logo-svg {
-    height: 48px;
-    width: auto;
+  .hero-logo-svg {
+    width: 200px;
+    height: auto;
     display: block;
   }
   #hero-bottom{
@@ -626,21 +627,48 @@
   <header id="hero">
     <div class="squarefield" id="squarefield"></div>
     <div id="hero-top">
-      <svg class="header-logo-svg" viewBox="0 0 280 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g transform="rotate(-23.5 45 42)">
-          <!-- Top Tile -->
-          <rect x="30" y="4" width="32" height="32" rx="7" fill="#3B8347" />
-          <!-- Right Tile -->
-          <rect x="44" y="28" width="32" height="32" rx="7" fill="#4CAF50" />
-          <!-- Bottom-Left Tile -->
-          <rect x="20" y="42" width="32" height="32" rx="7" fill="#1E402B" />
-          <!-- Left Tile -->
-          <rect x="6" y="18" width="32" height="32" rx="7" fill="#2A5C36" />
+      <svg class="hero-logo-svg" viewBox="0 0 490 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(-10, 0)">
+          <!-- 4 Rotated Square Tiles (Height spans from Y=18 to Y=142 -> 124px) -->
+          <g transform="rotate(-23.5 90 80)">
+            <rect x="64" y="8" width="58" height="58" rx="13" fill="#3f884d" />
+            <rect x="90" y="52" width="58" height="58" rx="13" fill="#52b157" />
+            <rect x="44" y="78" width="58" height="58" rx="13" fill="#1c3e29" />
+            <rect x="18" y="34" width="58" height="58" rx="13" fill="#2d603a" />
+          </g>
+          <!-- Text Group Scaled & Positioned to match the full 124px height of the mark (Y=18 to Y=142) -->
+          <g fill="#21422d">
+            <!-- C -->
+            <path d="M228 108 C202 108 182 91 182 60 C182 29 202 12 228 12 C245 12 258 20 262 31 L242 40 C239 33 235 29 228 29 C216 29 203 40 203 60 C203 80 216 91 228 91 C235 91 241 87 244 80 L264 88 C258 100 245 108 228 108 Z" />
+            <!-- B -->
+            <path d="M273 15 H310 C326 15 336 23 336 35 C336 43 330 50 320 53 C333 56 340 64 340 76 C340 90 327 106 308 106 H273 V15 Z M294 32 V50 H307 C314 50 318 46 318 40 C318 34 314 32 307 32 H294 Z M294 66 V89 H308 C315 89 321 85 321 78 C321 71 315 66 308 66 H294 Z" />
+            <!-- S -->
+            <path d="M381 108 C360 108 347 94 348 79 L368 76 C368 86 374 91 381 91 C388 91 394 87 394 81 C394 76 388 73 375 70 C358 66 348 59 348 45 C348 30 362 12 382 12 C400 12 412 25 413 37 L393 40 C392 33 388 29 381 29 C375 29 369 32 369 38 C369 42 373 45 386 48 C404 52 414 59 414 73 C414 88 400 108 381 108 Z" />
+          </g>
+          <!-- Text: MIDDLE EAST -->
+          <g fill="#52b157">
+            <!-- M -->
+            <path d="M182 122 H190 L198 144 L206 122 H214 V150 H207 V132 L200 150 H196 L189 132 V150 H182 V122 Z" />
+            <!-- I -->
+            <path d="M221 122 H228 V150 H221 V122 Z" />
+            <!-- D -->
+            <path d="M235 122 H245 C253 122 260 127 260 136 C260 145 253 150 245 150 H235 V122 Z M242 128 V144 H245 C250 144 253 141 253 136 C253 131 250 128 245 128 H242 Z" />
+            <!-- D -->
+            <path d="M267 122 H277 C285 122 292 127 292 136 C292 145 285 150 277 150 H267 V122 Z M274 128 V144 H277 C282 144 285 141 285 136 C285 131 282 128 277 128 H274 Z" />
+            <!-- L -->
+            <path d="M299 122 H306 V144 H318 V150 H299 V122 Z" />
+            <!-- E -->
+            <path d="M324 122 H341 V128 H331 V132 H340 V138 H331 V144 H341 V150 H324 V122 Z" />
+            <!-- E -->
+            <path d="M358 122 H375 V128 H365 V132 H374 V138 H365 V144 H375 V150 H358 V122 Z" />
+            <!-- A -->
+            <path d="M384 122 H392 L401 150 H393 L392 144 H384 L383 150 H376 L384 122 Z M391 138 L388 128 L385 138 H391 Z" />
+            <!-- S -->
+            <path d="M412 150 C405 150 401 146 401 141 L407 140 C407 142 409 145 412 145 C415 145 417 144 417 141 C417 140 416 138 412 137 C407 136 403 135 403 130 C403 125 407 122 413 122 C418 122 422 126 422 130 L416 131 C416 128 415 127 413 127 C411 127 410 128 410 130 C410 131 411 132 415 133 C420 134 424 136 424 140 C424 146 419 150 412 150 Z" />
+            <!-- T -->
+            <path d="M427 122 H444 V128 H439 V150 H432 V128 H427 V122 Z" />
+          </g>
         </g>
-        <!-- CBS Text -->
-        <text x="96" y="72" fill="#23422B" font-family="'Inter', Arial, sans-serif" font-weight="900" font-size="74" letter-spacing="-1.5">CBS</text>
-        <!-- MIDDLE EAST Text -->
-        <text x="96" y="98" fill="#55B362" font-family="'Inter', Arial, sans-serif" font-weight="700" font-size="20" letter-spacing="3.8">MIDDLE EAST</text>
       </svg>
     </div>
     <div id="hero-bottom">
